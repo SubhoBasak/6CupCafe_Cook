@@ -1,38 +1,46 @@
-.App {
-  text-align: center;
+.auth-canvas{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.auth-form{
+    width: 90%;
+    max-width: 600px;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 2px 4px 24px 3px #22222222;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.product-card {
+    width: 128px;
+    max-width: 128px;
+    min-width: 128px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background-color: #eee;
+    border: 1px solid #aaa;
+    margin: 12px 0 0 12px;
+    overflow: hidden;
+    padding: 0;
+    padding-bottom: 5px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.product-card img {
+    max-width: 128px;
+    max-height: 128px;
+    object-fit: scale-down;
+    margin: auto;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.product-card p {
+    margin-bottom: 0;
 }
