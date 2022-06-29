@@ -25,9 +25,8 @@ const Login = () => {
 
           localStorage.setItem("email", email);
           localStorage.setItem("token", data.token);
-          localStorage.setItem("name", data.name);
 
-          navigate("/express_billing");
+          navigate("/");
         });
       } else if (res.status === 401) alert("Incorrect email or password!");
       else alert("Something went wrong! Please try again.");

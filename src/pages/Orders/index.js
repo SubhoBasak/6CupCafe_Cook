@@ -9,14 +9,22 @@ const Orders = () => {
 
   const navigate = useNavigate();
 
-  const doneApi = (order) => {
-    fetch(process.env.REACT_APP_BASE_URL + "/order", {
+  setInterval(() => window.location.reload(), 10000);
+
+  const updateStatusApi = (oid) => {
+    fetch(process.env.REACT_APP_BASE_URL + "/sale", {
       method: "PUT",
       headers: {
         Authorization: localStorage.getItem("token"),
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(order),
+      body: JSON.stringify({ oid }),
+    }).then((res) => {
+      if (res.status === 200) window.location.reload();
+      else if (res.status === 404) return alert("Order not found!");
+      else if (res.status === 401 || res.status === 405)
+        return navigate("/login");
+      else return alert("Something went wrong! Please try again.");
     });
   };
 
@@ -45,6 +53,9 @@ const Orders = () => {
             <Alert className="ms-2 p-1 px-2 fs-6">
               {new Date(order.date).toLocaleString()}
             </Alert>
+            <Alert variant="danger" className="ms-2 p-1 px-2 fs-6">
+              {order.token}
+            </Alert>
             {order.customer && order.customer.name ? (
               <>
                 <Alert variant="success" className="ms-2 p-1 px-2 fs-6">
@@ -66,7 +77,14 @@ const Orders = () => {
             />
           ))}
           <div className="w-100 d-flex justify-content-center mt-2">
-            <Button variant="outline-danger">Complete</Button>
+            <Button
+              variant={
+                order.status === 0 ? "outline-danger" : "outline-success"
+              }
+              onClick={() => updateStatusApi(order._id)}
+            >
+              {order.status === 0 ? "Complete" : "Collected"}
+            </Button>
           </div>
         </div>
       ))}

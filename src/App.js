@@ -6,7 +6,6 @@ import Appbar from "./components/Appbar";
 
 import Orders from "./pages/Orders";
 import Login from "./pages/Login";
-import Products from "./pages/Products";
 
 function App() {
   return (
@@ -15,7 +14,6 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Orders />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/products" element={<Products />} />
       </Routes>
     </BrowserRouter>
   );
