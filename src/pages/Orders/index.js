@@ -54,7 +54,7 @@ const Orders = () => {
               {new Date(order.date).toLocaleString()}
             </Alert>
             <Alert variant="danger" className="ms-2 p-1 px-2 fs-6">
-              {order.token}
+              Token: {order.token.toString().padStart(3, "0")}
             </Alert>
             {order.customer && order.customer.name ? (
               <>
