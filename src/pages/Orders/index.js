@@ -9,7 +9,17 @@ const Orders = () => {
 
   const navigate = useNavigate();
 
-  setInterval(() => window.location.reload(), 10000);
+  setInterval(() => {
+    fetch(process.env.REACT_APP_BASE_URL + "/sale", {
+      method: "GET",
+      headers: { Authorization: localStorage.getItem("token") },
+    }).then((res) => {
+      if (res.status === 200) res.json().then((data) => setOrders(data));
+      else if (res.status === 401 || res.status === 405)
+        return navigate("/login");
+      else return alert("Something went wrong! Please try again.");
+    });
+  }, 10000);
 
   const updateStatusApi = (oid) => {
     fetch(process.env.REACT_APP_BASE_URL + "/sale", {
