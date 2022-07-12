@@ -19,7 +19,7 @@ const Orders = () => {
         return navigate("/login");
       else return alert("Something went wrong! Please try again.");
     });
-  }, 10000);
+  }, 30000);
 
   const updateStatusApi = (oid) => {
     fetch(process.env.REACT_APP_BASE_URL + "/sale", {
@@ -66,16 +66,6 @@ const Orders = () => {
             <Alert variant="danger" className="ms-2 p-1 px-2 fs-6">
               Token: {order.token.toString().padStart(3, "0")}
             </Alert>
-            {order.customer && order.customer.name ? (
-              <>
-                <Alert variant="success" className="ms-2 p-1 px-2 fs-6">
-                  {order.customer.name}
-                </Alert>
-                <Alert variant="warning" className="ms-2 p-1 px-2 fs-6">
-                  {order.customer.phone}
-                </Alert>
-              </>
-            ) : null}
             <hr className="w-100 my-0" />
           </div>
           {order.items.map((item, index) => (
