@@ -26,7 +26,7 @@ const Appbar = () => {
       </div>
       <Nav variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
-          <Link to="/" className="nav-link">
+          <Link to="/orders" className="nav-link">
             Orders
           </Link>
         </Nav.Item>

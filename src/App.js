@@ -12,7 +12,8 @@ function App() {
     <BrowserRouter>
       <Appbar />
       <Routes>
-        <Route path="/" exact element={<Orders />} />
+        <Route path="/" exact element={<Login />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
