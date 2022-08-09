@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
 
 const Orders = () => {
+  const [reload, setReload] = React.useState(false);
   const [orders, setOrders] = React.useState([]);
 
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Orders = () => {
       },
       body: JSON.stringify({ oid }),
     }).then((res) => {
-      if (res.status === 200) window.location.reload();
+      if (res.status === 200) setReload(!reload);
       else if (res.status === 404) return alert("Order not found!");
       else if (res.status === 401 || res.status === 405)
         return navigate("/login");
@@ -50,7 +51,7 @@ const Orders = () => {
         return navigate("/login");
       else return alert("Something went wrong! Please try again.");
     });
-  }, [navigate]);
+  }, [navigate, reload]);
 
   return (
     <div className="p-2">
