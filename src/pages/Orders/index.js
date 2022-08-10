@@ -20,7 +20,7 @@ const Orders = () => {
         return navigate("/login");
       else return alert("Something went wrong! Please try again.");
     });
-  }, 30000);
+  }, 5000);
 
   const updateStatusApi = (oid) => {
     fetch(process.env.REACT_APP_BASE_URL + "/sale", {
