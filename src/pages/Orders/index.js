@@ -5,22 +5,11 @@ import { useNavigate } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
 
 const Orders = () => {
-  const [reload, setReload] = React.useState(false);
   const [orders, setOrders] = React.useState([]);
 
   const navigate = useNavigate();
 
-  setInterval(() => {
-    fetch(process.env.REACT_APP_BASE_URL + "/sale", {
-      method: "GET",
-      headers: { Authorization: localStorage.getItem("token") },
-    }).then((res) => {
-      if (res.status === 200) res.json().then((data) => setOrders(data));
-      else if (res.status === 401 || res.status === 405)
-        return navigate("/login");
-      else return alert("Something went wrong! Please try again.");
-    });
-  }, 5000);
+  setInterval(window.location.reload, 10000);
 
   const updateStatusApi = (oid) => {
     fetch(process.env.REACT_APP_BASE_URL + "/sale", {
@@ -31,7 +20,7 @@ const Orders = () => {
       },
       body: JSON.stringify({ oid }),
     }).then((res) => {
-      if (res.status === 200) setReload(!reload);
+      if (res.status === 200) window.location.reload();
       else if (res.status === 404) return alert("Order not found!");
       else if (res.status === 401 || res.status === 405)
         return navigate("/login");
@@ -51,7 +40,7 @@ const Orders = () => {
         return navigate("/login");
       else return alert("Something went wrong! Please try again.");
     });
-  }, [navigate, reload]);
+  }, [navigate]);
 
   return (
     <div className="p-2">
