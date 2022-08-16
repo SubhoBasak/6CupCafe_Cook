@@ -9,7 +9,17 @@ const Orders = () => {
 
   const navigate = useNavigate();
 
-  setInterval(window.location.reload, 10000);
+  setInterval(() => window.location.reload(), 10000);
+
+  const showToken = (token) => {
+    if (token)
+      return (
+        <Alert variant="danger" className="ms-2 p-1 px-2 fs-6">
+          Token: {token.toString().padStart(3, "0")}
+        </Alert>
+      );
+    else return <></>;
+  };
 
   const updateStatusApi = (oid) => {
     fetch(process.env.REACT_APP_BASE_URL + "/sale", {
@@ -53,9 +63,12 @@ const Orders = () => {
             <Alert className="ms-2 p-1 px-2 fs-6">
               {new Date(order.date).toLocaleString()}
             </Alert>
-            <Alert variant="danger" className="ms-2 p-1 px-2 fs-6">
-              Token: {order.token.toString().padStart(3, "0")}
-            </Alert>
+            {showToken(order.token)}
+            {order.orderType === 1 ? (
+              <Alert className="ms-2 p-1 px-2 fs-6" variant="warning">
+                Parcel : {order.delivery.name}
+              </Alert>
+            ) : null}
             <hr className="w-100 my-0" />
           </div>
           {order.items.map((item, index) => (

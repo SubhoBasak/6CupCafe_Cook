@@ -12,8 +12,7 @@ function App() {
     <MemoryRouter>
       <Appbar />
       <Routes>
-        <Route path="/" exact element={<Login />} />
-        <Route path="/orders" element={<Orders />} />
+        <Route path="/" element={<Orders />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </MemoryRouter>
