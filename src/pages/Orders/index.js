@@ -1,15 +1,17 @@
 import React from "react";
 import { Alert, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import "./style.css";
 
 import ProductCard from "../../components/ProductCard";
+import ComboList from "../../components/ComboList";
 
 const Orders = () => {
+  const [reload, setReload] = React.useState(false);
   const [orders, setOrders] = React.useState([]);
+  const [combo, setCombo] = React.useState("");
 
   const navigate = useNavigate();
-
-  setInterval(() => window.location.reload(), 10000);
 
   const showToken = (token) => {
     if (token)
@@ -30,7 +32,7 @@ const Orders = () => {
       },
       body: JSON.stringify({ oid }),
     }).then((res) => {
-      if (res.status === 200) window.location.reload();
+      if (res.status === 200) return setReload(!reload);
       else if (res.status === 404) return alert("Order not found!");
       else if (res.status === 401 || res.status === 405)
         return navigate("/login");
@@ -50,7 +52,7 @@ const Orders = () => {
         return navigate("/login");
       else return alert("Something went wrong! Please try again.");
     });
-  }, [navigate]);
+  }, [navigate, reload]);
 
   return (
     <div className="p-2">
@@ -69,6 +71,11 @@ const Orders = () => {
                 Parcel : {order.delivery.name}
               </Alert>
             ) : null}
+            {order.parcel === true ? (
+              <Alert className="ms-2 p-1 px-2 fs-6" variant="warning">
+                Parcel
+              </Alert>
+            ) : null}
             <hr className="w-100 my-0" />
           </div>
           {order.items.map((item, index) => (
@@ -77,6 +84,8 @@ const Orders = () => {
               pid={item.item._id}
               name={item.item.name}
               qnt={item.quantity}
+              comb={item.item.note ? true : false}
+              showCombo={() => setCombo(item.item.note)}
             />
           ))}
           <div className="w-100 d-flex justify-content-center mt-2">
@@ -91,6 +100,14 @@ const Orders = () => {
           </div>
         </div>
       ))}
+      <ComboList show={combo !== ""} close={() => setCombo("")} note={combo} />
+      <Button
+        variant="primary"
+        className="refresh-btn"
+        onClick={() => setReload(!reload)}
+      >
+        New orders
+      </Button>
     </div>
   );
 };
