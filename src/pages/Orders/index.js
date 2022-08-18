@@ -66,6 +66,16 @@ const Orders = () => {
               {new Date(order.date).toLocaleString()}
             </Alert>
             {showToken(order.token)}
+            {order.customer && order.customer.name ? (
+              <>
+                <Alert variant="success" className="ms-2 p-1 px-2 fs-6">
+                  Name: {order.customer.name}
+                </Alert>
+                <Alert variant="info" className="ms-2 p-1 px-2 fs-6">
+                  Phone: {order.customer.phone}
+                </Alert>
+              </>
+            ) : null}
             {order.orderType === 1 ? (
               <Alert className="ms-2 p-1 px-2 fs-6" variant="warning">
                 Parcel : {order.delivery.name}
