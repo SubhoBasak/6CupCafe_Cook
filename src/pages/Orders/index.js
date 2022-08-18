@@ -83,16 +83,20 @@ const Orders = () => {
               {order.note}
             </Alert>
           ) : null}
-          {order.items.map((item, index) => (
-            <ProductCard
-              key={index}
-              pid={item.item._id}
-              name={item.item.name}
-              qnt={item.quantity}
-              comb={item.item.note ? true : false}
-              showCombo={() => setCombo(item.item.note)}
-            />
-          ))}
+          {order.items.map((item, index) => {
+            if (item.item && item.item._id)
+              return (
+                <ProductCard
+                  key={index}
+                  pid={item.item._id}
+                  name={item.item.name}
+                  qnt={item.quantity}
+                  comb={item.item.note ? true : false}
+                  showCombo={() => setCombo(item.item.note)}
+                />
+              );
+            else return <p>Item deleted</p>;
+          })}
           <div className="w-100 d-flex justify-content-center mt-2">
             <Button
               variant={
