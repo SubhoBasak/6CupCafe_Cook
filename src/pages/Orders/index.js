@@ -63,19 +63,14 @@ const Orders = () => {
         >
           <div className="w-100 p-2 fs-5 d-flex flex-wrap">
             <Alert className="ms-2 p-1 px-2 fs-6">
-              {new Date(order.date).toLocaleString()}
+              Order time: {new Date(order.date).toLocaleString()}
             </Alert>
-            {showToken(order.token)}
-            {order.customer && order.customer.name ? (
-              <>
-                <Alert variant="success" className="ms-2 p-1 px-2 fs-6">
-                  Name: {order.customer.name}
-                </Alert>
-                <Alert variant="info" className="ms-2 p-1 px-2 fs-6">
-                  Phone: {order.customer.phone}
-                </Alert>
-              </>
+            {order.completeTime ? (
+              <Alert className="ms-2 p-1 px-2 fs-6" variant="danger">
+                Complete time: {new Date(order.completeTime).toLocaleString()}
+              </Alert>
             ) : null}
+            {showToken(order.token)}
             {order.orderType === 1 ? (
               <Alert className="ms-2 p-1 px-2 fs-6" variant="warning">
                 Parcel : {order.delivery.name}
@@ -88,11 +83,6 @@ const Orders = () => {
             ) : null}
             <hr className="w-100 my-0" />
           </div>
-          {order.address ? (
-            <Alert variant="primary" className="w-100 my-1 p-2">
-              <strong>Address: </strong> {order.address}
-            </Alert>
-          ) : null}
           {order.note ? (
             <Alert variant="secondary" className="w-100 my-1 p-2">
               <strong>Note: </strong>
