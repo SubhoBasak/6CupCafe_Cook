@@ -22,10 +22,8 @@ const Orders = () => {
       );
     else return <></>;
   };
-  const re = () => setReload(!reload)
-const timerid = 10000
-const auto = setInterval(()=>{setReload(!reload)}, timerid)
-const autof =()=>{clearInterval(auto, 1000)}
+const autoreload = setInterval(()=>{setReload(!reload)}, 10000)
+const autof =()=>{clearInterval(autoreload, 1000)}
 setInterval(()=>{autof()}, 12000)
 
   const updateStatusApi = (oid) => {
@@ -124,7 +122,7 @@ setInterval(()=>{autof()}, 12000)
       <Button
         variant="primary"
         className="refresh-btn"
-        onClick={() => {re()}}
+        onClick={() => setReload(!reload)}
       >
         New orders
       </Button>
