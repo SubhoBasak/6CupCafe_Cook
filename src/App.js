@@ -6,6 +6,7 @@ import Appbar from "./components/Appbar";
 
 import Orders from "./pages/Orders";
 import Login from "./pages/Login";
+import Sales from "./pages/Sales"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/sales" element={<Sales />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </MemoryRouter>

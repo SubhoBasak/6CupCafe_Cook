@@ -22,6 +22,11 @@ const Orders = () => {
       );
     else return <></>;
   };
+  const re = () => setReload(!reload)
+const timerid = 10000
+const auto = setInterval(()=>{setReload(!reload)}, timerid)
+const autof =()=>{clearInterval(auto, 1000)}
+setInterval(()=>{autof()}, 12000)
 
   const updateStatusApi = (oid) => {
     fetch(process.env.REACT_APP_BASE_URL + "/sale", {
@@ -53,7 +58,7 @@ const Orders = () => {
       else return alert("Something went wrong! Please try again.");
     });
   }, [navigate, reload]);
-
+  
   return (
     <div className="p-2">
       {orders.map((order, index) => (
@@ -119,7 +124,7 @@ const Orders = () => {
       <Button
         variant="primary"
         className="refresh-btn"
-        onClick={() => setReload(!reload)}
+        onClick={() => {re()}}
       >
         New orders
       </Button>
