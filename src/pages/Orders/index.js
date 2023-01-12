@@ -15,7 +15,14 @@ const Orders = () => {
   const navigate = useNavigate();
 
   function playText(p) {
-    const utterance = new SpeechSynthesisUtterance(`Attention! ${p} order is pending `);
+    let text
+    if(p>1){
+      text = "order's"
+    }
+    else{
+      text = "order"
+    }
+    const utterance = new SpeechSynthesisUtterance(`Attention! ${p} ${text} is pending `);
     utterance.rate = 1
     speechSynthesis.speak(utterance);
   }
