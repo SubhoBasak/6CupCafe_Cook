@@ -10,8 +10,15 @@ const Orders = () => {
   const [reload, setReload] = React.useState(false);
   const [orders, setOrders] = React.useState([]);
   const [combo, setCombo] = React.useState("");
+ 
 
   const navigate = useNavigate();
+
+  function playText(p) {
+    const utterance = new SpeechSynthesisUtterance(`Attention! ${p} order is pending `);
+    utterance.rate = 1
+    speechSynthesis.speak(utterance);
+  }
 
   const showToken = (token) => {
     if (token)
@@ -22,9 +29,9 @@ const Orders = () => {
       );
     else return <></>;
   };
-const autoreload = setInterval(()=>{setReload(!reload)}, 10000)
-const autof =()=>{clearInterval(autoreload, 1000)}
-setInterval(()=>{autof()}, 12000)
+  const autoreload = setInterval(() => { setReload(!reload) }, 8000)
+  const autof = () => { clearInterval(autoreload, 1000) }
+  setInterval(() => { autof() }, 10000)
 
   const updateStatusApi = (oid) => {
     fetch(process.env.REACT_APP_BASE_URL + "/sale", {
@@ -50,13 +57,18 @@ setInterval(()=>{autof()}, 12000)
       method: "GET",
       headers: { Authorization: localStorage.getItem("token") },
     }).then((res) => {
-      if (res.status === 200) res.json().then((data) => setOrders(data));
+      if (res.status === 200) res.json().then((data) => {
+        let x = data.filter(d=>d.status === 0).length
+        if(x>0){
+          playText(x)
+        }
+        setOrders(data)});
       else if (res.status === 401 || res.status === 405)
         return navigate("/login");
       else return alert("Something went wrong! Please try again.");
     });
   }, [navigate, reload]);
-  
+
   return (
     <div className="p-2">
       {orders.map((order, index) => (
@@ -109,11 +121,13 @@ setInterval(()=>{autof()}, 12000)
           <div className="w-100 d-flex justify-content-center mt-2">
             <Button
               variant={
-                order.status === 0 ? "outline-danger" : "outline-success"
+                order.status === 0 ? "outline-primary" : (order.status === 1) ? "outline-danger" : "outline-success"
               }
-              onClick={() => updateStatusApi(order._id)}
+              onClick={() => {
+              
+                updateStatusApi(order._id)}}
             >
-              {order.status === 0 ? "Complete" : "Collected"}
+              {order.status === 0 ? "Accept" : (order.status === 1) ? "Complete" : "Collected"}
             </Button>
           </div>
         </div>
