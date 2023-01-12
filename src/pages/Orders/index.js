@@ -22,7 +22,7 @@ const Orders = () => {
     else{
       text = "order"
     }
-    const utterance = new SpeechSynthesisUtterance(`Attention! ${p} ${text} is pending `);
+    const utterance = new SpeechSynthesisUtterance(`Attention! ${p} New ${text}  `);
     utterance.rate = 1
     speechSynthesis.speak(utterance);
   }
@@ -36,9 +36,9 @@ const Orders = () => {
       );
     else return <></>;
   };
-  const autoreload = setInterval(() => { setReload(!reload) }, 8000)
+  const autoreload = setInterval(() => { setReload(!reload) }, 17000)
   const autof = () => { clearInterval(autoreload, 1000) }
-  setInterval(() => { autof() }, 10000)
+  setInterval(() => { autof() }, 20000)
 
   const updateStatusApi = (oid) => {
     fetch(process.env.REACT_APP_BASE_URL + "/sale", {
