@@ -15,15 +15,18 @@ const  playText = ()=> {
   let curHr = new Date().getHours();
   let text
   if(curHr < 12){
-    text = "morning"
+    text = "good morning, Welcome to Inibila kitchen"
   }
   else if(curHr < 18){
-    text = "afternoon"
+    text = "good afternoon, Welcome to Inibila Kitchen"
   }
   else if(curHr < 21){
-    text = "evening"
+    text = "good evening, Welcome to Inibila Kitchen"
   }
-  const utterance = new SpeechSynthesisUtterance(`good ${text}, Welcome to Inibila Kitchen `);
+  else{
+    text = "Welcome to Inibila Kitchen"
+  }
+  const utterance = new SpeechSynthesisUtterance(text);
   utterance.rate = 1
   speechSynthesis.speak(utterance);
 }
