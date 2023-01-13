@@ -14,7 +14,7 @@ const Orders = () => {
 
   const navigate = useNavigate();
 
-  function playText(p) {
+  const  playText = (p)=> {
     let text
     if(p>1){
       text = "order's"
@@ -67,7 +67,7 @@ const Orders = () => {
       if (res.status === 200) res.json().then((data) => {
         let x = data.filter(d=>d.status === 0).length
         if(x>0){
-          playText(x)
+          setInterval(()=>{playText(x)}, 18000)
         }
         setOrders(data)});
       else if (res.status === 401 || res.status === 405)

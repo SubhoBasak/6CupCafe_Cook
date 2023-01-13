@@ -10,6 +10,24 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
+const  playText = ()=> {
+  
+  let curHr = new Date().getHours();
+  let text
+  if(curHr < 12){
+    text = "morning"
+  }
+  else if(curHr < 18){
+    text = "afternoon"
+  }
+  else if(curHr < 21){
+    text = "evening"
+  }
+  const utterance = new SpeechSynthesisUtterance(`good ${text}, Welcome to Inibila Kitchen `);
+  utterance.rate = 1
+  speechSynthesis.speak(utterance);
+}
+
 const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -34,6 +52,7 @@ const Login = () => {
           localStorage.setItem("email", email);
           localStorage.setItem("token", data.token);
 
+          playText();
           navigate("/orders");
         });
       } else if (res.status === 401) alert("Incorrect email or password!");
