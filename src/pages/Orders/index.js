@@ -14,18 +14,6 @@ const Orders = () => {
 
   const navigate = useNavigate();
 
-  const  playText = (p)=> {
-    let text
-    if(p>1){
-      text = "order's"
-    }
-    else{
-      text = "order"
-    }
-    const utterance = new SpeechSynthesisUtterance(`Attention! ${p} New ${text}  `);
-    utterance.rate = 1
-    speechSynthesis.speak(utterance);
-  }
 
   const showToken = (token) => {
     if (token)
@@ -58,6 +46,19 @@ const Orders = () => {
   };
 
   React.useEffect(() => {
+       
+  const  playText = (p)=> {
+    let text
+    if(p>1){
+      text = "order's"
+    }
+    else{
+      text = "order"
+    }
+    const utterance = new SpeechSynthesisUtterance(`Attention! ${p} New ${text}  `);
+    utterance.rate = 1
+    speechSynthesis.speak(utterance);
+  }
     if (!localStorage.getItem("token")) return navigate("/login");
 
     fetch(process.env.REACT_APP_BASE_URL + "/sale", {
@@ -67,7 +68,7 @@ const Orders = () => {
       if (res.status === 200) res.json().then((data) => {
         let x = data.filter(d=>d.status === 0).length
         if(x>0){
-          setInterval(()=>{playText(x)}, 18000)
+          playText(x)
         }
         setOrders(data)});
       else if (res.status === 401 || res.status === 405)
